@@ -3,6 +3,8 @@ package util;
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
 
+import gui.Service;
+
 import java.io.*;
 
 /**
@@ -40,24 +42,28 @@ public class File7zUtils {
 			// 取出文件夹中的文件（或子文件夹）
 			File[] flist = input.listFiles();
 
-			if (flist.length == 0)// 如果文件夹为空，则只�?在目的地.7z文件中写入一个目录进�?
+			if (flist.length == 0)// 如果文件夹为空，则只??在目的地.7z文件中写入一个目录进??
 			{
 				entry = out.createArchiveEntry(input, name + "/");
 				out.putArchiveEntry(entry);
-			} else// 如果文件夹不为空，则递归调用compress，文件夹中的每一个文件（或文件夹）进行压�?
+			} else// 如果文件夹不为空，则递归调用compress，文件夹中的每一个文件（或文件夹）进行压??
 			{
 				for (int i = 0; i < flist.length; i++) {
 					compress(out, flist[i], name + "/" + flist[i].getName());
 				}
 			}
-		} else// 如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入7z文件�?
+		} else// 如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入7z文件??
 		{
+			Service.showBoard.append("正在拷贝文件: " + input.getName() + " \n");
+			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
+			
+			
 			FileInputStream fos = new FileInputStream(input);
 			BufferedInputStream bis = new BufferedInputStream(fos);
 			entry = out.createArchiveEntry(input, name);
 			out.putArchiveEntry(entry);
 			int len = -1;
-			// 将源文件写入�?7z文件�?
+			// 将源文件写入??7z文件??
 			byte[] buf = new byte[1024];
 			while ((len = bis.read(buf)) != -1) {
 				out.write(buf, 0, len);

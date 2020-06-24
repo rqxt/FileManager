@@ -6,13 +6,13 @@ import domain.Category;
 
 public interface CategoryDao {
 	/**
-	 * ²éÑ¯ËùÓĞ
+	 * æŸ¥è¯¢æ‰€æœ‰
 	 * @return
 	 */
 	List<Category> findAll();
 
 	/**
-	 * Í¨¹ıid²éÕÒÒ»¸ö
+	 * é€šè¿‡idæŸ¥æ‰¾ä¸€ä¸ª
 	 * @param id
 	 * @return
 	 */

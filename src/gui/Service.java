@@ -10,11 +10,11 @@ import service.impl.FileServiceImpl;
 import service.impl.TagServiceImpl;
 
 public class Service {
-	// 预先加载资源
+	// 棰勫厛鍔犺浇璧勬簮
 	public static CategoryService categoryService = new CategoryServiceImpl();
 	public static TagService tagService = new TagServiceImpl();
 	public static FileService fileService = new FileServiceImpl();
-	// 全局共享变量
+	// 鍏ㄥ眬鍏变韩鍙橀噺
 	public static String categroyName;
 	public static String tagName;
 	public static JTextArea showBoard;

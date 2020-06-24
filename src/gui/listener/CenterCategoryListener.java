@@ -17,28 +17,28 @@ public class CenterCategoryListener extends MouseAdapter{
 	public CenterTagListener centerTagListener = new CenterTagListener();
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// Èç¹ûÃ»ÓĞÊäÈë¾ø¶ÔÂ·¾¶£¬Ôò²»Ö´ĞĞÈÎºÎ²Ù×÷
+		// å¦‚æœæ²¡æœ‰è¾“å…¥ç»å¯¹è·¯å¾„ï¼Œåˆ™ä¸æ‰§è¡Œä»»ä½•æ“ä½œ
 		if(GUI.pathField.getText().trim().equals("")) {
 			return;
 		}
-		// »ñµÃµã»÷µÄ·ÖÀàÃû
+		// è·å¾—ç‚¹å‡»çš„åˆ†ç±»å
 		JButton button = (JButton)(e.getSource());
 		String categoryName = button.getText();
-		// »ñµÃ¸Ã·ÖÀàÏÂµÄËùÓĞ±êÇ©
+		// è·å¾—è¯¥åˆ†ç±»ä¸‹çš„æ‰€æœ‰æ ‡ç­¾
 		tags = Service.tagService.findByCategoryName(categoryName);
-		// ÖØ¹¹ÖĞ¼ä²¿¼şPanel
+		// é‡æ„ä¸­é—´éƒ¨ä»¶Panel
 		GUI.centerPanel.removeAll();
 		GUI.centerPanel.repaint();
 		GUI.centerPanel.revalidate();
 		GUI.centerPanel.setLayout(new GridLayout((tags.size()+1)/2,2));
-		GUI.msgLeftLabel.setText("±êÇ©");
+		GUI.msgLeftLabel.setText("æ ‡ç­¾");
 		for (int i = 0; i < tags.size(); i++) {
 			String name = tags.get(i).getName();
 			JButton cButton = ComponentUtils.getButton(name);
 			cButton.addMouseListener(centerTagListener);
 			GUI.centerPanel.add(cButton);
 		}
-		// ¸üĞÂÈ«¾Ö±äÁ¿
+		// æ›´æ–°å…¨å±€å˜é‡
 		Service.categroyName = categoryName;
 	}
 

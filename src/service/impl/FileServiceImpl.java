@@ -16,16 +16,16 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public void copyFile(String path, String categroyName, String tagName) {
-		// »ñÈ¡µ±Ç°Â·¾¶
+		// è·å–å½“å‰è·¯å¾„
 		String currentPath = FileServiceImpl.class.getClassLoader().getResource("").getPath();
 		File source = new File(path);
-		// ¿½±´ÎÄ¼şµÄÂ·¾¶
-		String targetPath = currentPath + "//´úÂë´æ´¢//" + categroyName + "//" + tagName;
+		// æ‹·è´æ–‡ä»¶çš„è·¯å¾„
+		String targetPath = currentPath + "//ä»£ç å­˜å‚¨//" + categroyName + "//" + tagName;
 		File target = new File(targetPath);
 
 //		System.out.println(source);
 //		System.out.println(target);
-		// µİ¹é¿½±´ÎÄ¼şÄ¿Â¼½á¹¹
+		// é€’å½’æ‹·è´æ–‡ä»¶ç›®å½•ç»“æ„
 		iterate(source, target, tagName, 0);
 	}
 
@@ -35,19 +35,19 @@ public class FileServiceImpl implements FileService {
 	}
 
 	/**
-	 * µİ¹é¸´ÖÆÎÄ¼ş
+	 * é€’å½’å¤åˆ¶æ–‡ä»¶
 	 * 
-	 * @param sourceFile Ô´ÎÄ¼ş
-	 * @param targetFile Ä¿±êÄ¿Â¼ £¨µ±Ç°/·ÖÀà/±êÇ©/
+	 * @param sourceFile æºæ–‡ä»¶
+	 * @param targetFile ç›®æ ‡ç›®å½• ï¼ˆå½“å‰/åˆ†ç±»/æ ‡ç­¾/
 	 */
 	private void iterate(File sourceFile, File targetFile, String tagName, int flag) {
-		// ÅĞ¶ÏÔ´ÎÄ¼ş¶ÔÏóÀàĞÍ
+		// åˆ¤æ–­æºæ–‡ä»¶å¯¹è±¡ç±»å‹
 		if (sourceFile.isFile()) {
-			// Ìí¼ÓÊ±¼ä´ÁºÍ±êÇ©
+			// æ·»åŠ æ—¶é—´æˆ³å’Œæ ‡ç­¾
 			targetFile = new File(targetFile, sourceFile.getName());
 			copyFile(sourceFile, targetFile);
 		} else {
-			// Èç¹ûÊÇÎÄ¼şµÄ»°£¬sourceFile.getName()¿ÉÒÔµÃµ½ÎÄ¼şÄ¿Â¼µÄÃû×Ö
+			// å¦‚æœæ˜¯æ–‡ä»¶çš„è¯ï¼ŒsourceFile.getName()å¯ä»¥å¾—åˆ°æ–‡ä»¶ç›®å½•çš„åå­—
 			String name = sourceFile.getName();
 			if (flag == 0)
 				name = addTagAndTime(name, tagName);
@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
 
 	}
 
-	// Ìí¼Ó±êÇ©´Á
+	// æ·»åŠ æ ‡ç­¾æˆ³
 	private String addTagAndTime(String name, String tagName) {
 		String today = DateUtils.getToday();
 		name = String.format("[%s].%s", tagName, name);
@@ -69,10 +69,10 @@ public class FileServiceImpl implements FileService {
 	}
 
 	/**
-	 * ¿½±´µ¥¸öÎÄ¼ş
+	 * æ‹·è´å•ä¸ªæ–‡ä»¶
 	 * 
-	 * @param sourceFile Ô´ÎÄ¼ş
-	 * @param targetFile Ä¿±êÎÄ¼ş
+	 * @param sourceFile æºæ–‡ä»¶
+	 * @param targetFile ç›®æ ‡æ–‡ä»¶
 	 */
 	private void copyFile(File sourceFile, File targetFile) {
 		BufferedInputStream in = null;
@@ -80,7 +80,9 @@ public class FileServiceImpl implements FileService {
 		try {
 			in = new BufferedInputStream(new FileInputStream(sourceFile));
 			out = new BufferedOutputStream(new FileOutputStream(targetFile));
-			Service.showBoard.append("ÕıÔÚ¸´ÖÆÎÄ¼ş: " + sourceFile.getName() + " \n");
+			Thread.sleep(50);
+			Service.showBoard.append("æ­£åœ¨å¤åˆ¶æ–‡ä»¶: " + sourceFile.getName() + " \n");
+			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
 			int len;
 			while ((len = in.read()) != -1) {
 				out.write(len);
@@ -97,24 +99,24 @@ public class FileServiceImpl implements FileService {
 		}
 	}
 
-	// ±¸·İÎÄ¼ş
+	// å¤‡ä»½æ–‡ä»¶
 	@Override
 	public void backupFile(String from, String categoryName, String tagName) {
-		// »ñÈ¡µ±Ç°Â·¾¶
+		// è·å–å½“å‰è·¯å¾„
 		String currentPath = FileServiceImpl.class.getClassLoader().getResource("").getPath();
-		// ¿½±´ÎÄ¼şµÄÂ·¾¶
-		String targetPath = currentPath + "/[±¸·İ]´úÂë´æ´¢/" + categoryName + "/" + tagName;
+		// æ‹·è´æ–‡ä»¶çš„è·¯å¾„
+		String targetPath = currentPath + "/[å¤‡ä»½]ä»£ç å­˜å‚¨/" + categoryName + "/" + tagName;
 
-		// Éú³ÉÄ¿±êÄ¿Â¼
+		// ç”Ÿæˆç›®æ ‡ç›®å½•
 		File f = new File(targetPath);
 		f.mkdirs();
 
-		// Ìí¼Ó±êÇ©´Á
+		// æ·»åŠ æ ‡ç­¾æˆ³
 		String name = from.substring(from.lastIndexOf("\\") + 1);
 		name = String.format("\\[%s].%s.7z", tagName, name);
 		
 		try {
-			// Ñ¹ËõÎÄ¼ş
+			// å‹ç¼©æ–‡ä»¶
 			File7zUtils.Compress7z(from, targetPath + name);
 		} catch (Exception e) {
 			e.printStackTrace();

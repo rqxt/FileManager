@@ -26,7 +26,7 @@ import service.impl.FileServiceImpl;
 import service.impl.TagServiceImpl;
 
 public class GUI extends JFrame {
-	// ½«GUIµÄ¿Ø¼ş·ÃÎÊÈ¨ÏŞ·Å¿ª
+	// å°†GUIçš„æ§ä»¶è®¿é—®æƒé™æ”¾å¼€
 	public static JPanel centerPanel;
 	public static JScrollPane centerScrollPane;
 	public static JLabel msgLeftLabel;
@@ -34,23 +34,23 @@ public class GUI extends JFrame {
 	public static JTextField pathField;
 	
 	public GUI() {
-		// ÉÏ±ßÎÄ¼ş¼ĞµÄ¾ø¶ÔÂ·¾¶
+		// ä¸Šè¾¹æ–‡ä»¶å¤¹çš„ç»å¯¹è·¯å¾„
 		pathTopPanel = ComponentUtils.getPanel(new BorderLayout());
 		pathTopPanel.setBackground(Color.LIGHT_GRAY);
-		// ÌáÊ¾¿ò
-		pathTopPanel.add(ComponentUtils.getLabel("ÎÄ¼ş¼Ğ¾ø¶ÔÂ·¾¶£º"), BorderLayout.WEST);
-		// ÊäÈë¿ò
+		// æç¤ºæ¡†
+		pathTopPanel.add(ComponentUtils.getLabel("æ–‡ä»¶å¤¹ç»å¯¹è·¯å¾„ï¼š"), BorderLayout.WEST);
+		// è¾“å…¥æ¡†
 		pathField = ComponentUtils.getTextField();
 		pathTopPanel.add(pathField, BorderLayout.CENTER);
 		
-		// ×ó±ß×´Ì¬À¸Ä¿
-		msgLeftLabel = ComponentUtils.getLabel("·ÖÀà");
+		// å·¦è¾¹çŠ¶æ€æ ç›®
+		msgLeftLabel = ComponentUtils.getLabel("åˆ†ç±»");
 		
-		// ÖĞ¼ä»î¶¯ÇøÓò
+		// ä¸­é—´æ´»åŠ¨åŒºåŸŸ
 		centerPanel = new JPanel();
 		centerScrollPane = ComponentUtils.getScrollPane(centerPanel);
 		
-		// ¼ÓÔØ·ÖÀà
+		// åŠ è½½åˆ†ç±»
 		List<Category> categories = Service.categoryService.findAll();
 		centerPanel.setLayout(new GridLayout((categories.size()+1)/2,2));
 		for (int i = 0; i < categories.size(); i++) {
@@ -60,21 +60,21 @@ public class GUI extends JFrame {
 			centerPanel.add(cButton);
 		}
 		
-		// ÉèÖÃ²¼¾Ö
+		// è®¾ç½®å¸ƒå±€
         setLayout(new BorderLayout());
         add(pathTopPanel, BorderLayout.NORTH);
         add(msgLeftLabel, BorderLayout.WEST);
         add(centerScrollPane, BorderLayout.CENTER);
 		
-		// ±êÌâ
-		setTitle("´úÂë´æ´¢¹ÜÀí");
-		// ³ß´ç´óĞ¡
+		// æ ‡é¢˜
+		setTitle("ä»£ç å­˜å‚¨ç®¡ç†");
+		// å°ºå¯¸å¤§å°
 		setSize(800, 600);
-		// Ë®Æ½ÊúÖ±¾ÓÖĞ
+		// æ°´å¹³ç«–ç›´å±…ä¸­
 		setLocationRelativeTo(null);
-		// ¹Ø±Õ´°¿ÚµÄÄ¬ÈÏ·½Ê½
+		// å…³é—­çª—å£çš„é»˜è®¤æ–¹å¼
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// ÏÔÊ¾´°¿Ú
+		// æ˜¾ç¤ºçª—å£
 		setVisible(true);
 	}
 

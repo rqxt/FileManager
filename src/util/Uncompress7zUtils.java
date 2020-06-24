@@ -14,11 +14,11 @@ public class Uncompress7zUtils {
          * @param destDirPath  解压路径
          */
         File srcFile = new File(inputFile);//获取当前压缩文件
-        // 判断源文件是否存�?
+        // 判断源文件是否存??
         if (!srcFile.exists()) {
-            throw new Exception(srcFile.getPath() + "�?指文件不存在");
+            throw new Exception(srcFile.getPath() + "??指文件不存在");
         }
-        //�?始解�?
+        //??始解??
         SevenZFile zIn = new SevenZFile(srcFile);
         SevenZArchiveEntry entry = null;
         File file = null;

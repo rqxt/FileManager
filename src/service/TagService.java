@@ -5,11 +5,11 @@ import java.util.List;
 import domain.Tag;
 
 /**
- * 标签管理
+ * 鏍囩绠＄悊
  */
 public interface TagService {
 	/**
-	 * 根据分类Id查找标签
+	 * 鏍规嵁鍒嗙被Id鏌ユ壘鏍囩
 	 */
 	List<Tag> findByCategoryName(String id);
 }

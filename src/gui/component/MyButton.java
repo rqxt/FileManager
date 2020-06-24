@@ -17,8 +17,8 @@ import javax.swing.JToggleButton;
  * https://blog.csdn.net/yuanzihui/article/details/43935509
  */
 public class MyButton extends JButton {
-	private float alpha = 1f; // µ×É«µÄÍ¸Ã÷¶È£¬Ä¬ÈÏÎª²»Í¸Ã÷
-	private int isMouseEntered = 1;// Êó±êÊÇ·ñ½øÈë°´Å¥
+	private float alpha = 1f; // åº•è‰²çš„é€æ˜åº¦ï¼Œé»˜è®¤ä¸ºä¸é€æ˜
+	private int isMouseEntered = 1;// é¼ æ ‡æ˜¯å¦è¿›å…¥æŒ‰é’®
 
 	public MyButton() {
 		initStyle();
@@ -28,11 +28,11 @@ public class MyButton extends JButton {
 	public MyButton(String buttonText) {
 		super(buttonText);
 		initStyle();
-		// Ìí¼ÓÊó±ê¼àÌı
+		// æ·»åŠ é¼ æ ‡ç›‘å¬
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// µ±Êó±ê½øÈëÊ±,Êó±ê½øÈë×´Ì¬¸ÄÎªTRUE£¬²¢ÖØ»æ°´Å¥
+				// å½“é¼ æ ‡è¿›å…¥æ—¶,é¼ æ ‡è¿›å…¥çŠ¶æ€æ”¹ä¸ºTRUEï¼Œå¹¶é‡ç»˜æŒ‰é’®
 				isMouseEntered = 0;
 				repaint();
 				super.mouseEntered(e);
@@ -61,10 +61,10 @@ public class MyButton extends JButton {
 	}
 
 	/**
-	 * ³õÊ¼»¯°´Å¥ÑùÊ½
+	 * åˆå§‹åŒ–æŒ‰é’®æ ·å¼
 	 */
 	private void initStyle() {
-		// ³õÊ¼»¯Í¸Ã÷°´Å¥
+		// åˆå§‹åŒ–é€æ˜æŒ‰é’®
 		setOpaque(false);
 		setBorder(null);
 //      setBorderPainted(false);
@@ -81,7 +81,7 @@ public class MyButton extends JButton {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		// »æÖÆ½¥±äµ×É«
+		// ç»˜åˆ¶æ¸å˜åº•è‰²
 		switch (isMouseEntered) {
 		case 0:
 			AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
@@ -108,10 +108,10 @@ public class MyButton extends JButton {
 
 	private static void drawButtonBackground(Graphics2D g2, MyButton myButton, Color c1, Color c2, Color c3, Color c4) {
 
-		// Ê¹Æ½»¬
+		// ä½¿å¹³æ»‘
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		// ÔìÒ»¸öÔ²½ÇÇøÓò
+		// é€ ä¸€ä¸ªåœ†è§’åŒºåŸŸ
 		RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0, myButton.getWidth() - 1, myButton.getHeight() - 1, 10, 10);
 		Shape clip = g2.getClip();
 		g2.clip(r2d);
@@ -120,10 +120,10 @@ public class MyButton extends JButton {
 		g2.setColor(Color.decode("#afafaf"));
 		g2.drawRoundRect(0, 0, myButton.getWidth() - 2, myButton.getHeight() - 1, 10, 10);
 
-		// ½¥±ä±³¾°
+		// æ¸å˜èƒŒæ™¯
 		g2.setPaint(new GradientPaint(2, 2, c1, 1, myButton.getHeight() / 3, c2));
 		g2.fillRoundRect(2, 2, myButton.getWidth() - 5, myButton.getHeight() / 3, 10, 10);
-		// ½¥±ä¶ş¶Î
+		// æ¸å˜äºŒæ®µ
 		g2.setPaint(new GradientPaint(1, myButton.getHeight() / 3, c3, 1, myButton.getHeight(), c4));
 		g2.fillRoundRect(2, myButton.getHeight() / 3, myButton.getWidth() - 5, myButton.getHeight() / 3 * 2 - 1, 10, 10);
 
@@ -134,26 +134,26 @@ public class MyButton extends JButton {
 	private static void drawButtonPressBackground(Graphics2D g2, MyButton myButton, Color c1, Color c2, Color c3,
 			Color c4) {
 
-		// Ê¹Æ½»¬
+		// ä½¿å¹³æ»‘
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		// ÔìÒ»¸öÔ²½ÇÇøÓò
+		// é€ ä¸€ä¸ªåœ†è§’åŒºåŸŸ
 		RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0, myButton.getWidth() - 1, myButton.getHeight() - 1, 10, 10);
 		Shape clip = g2.getClip();
 		g2.clip(r2d);
 		g2.setClip(clip);
 
-		// Íâ±ß¿ò
+		// å¤–è¾¹æ¡†
 		g2.drawRoundRect(0, 0, myButton.getWidth() - 2, myButton.getHeight() - 1, 10, 10);
 
-		// ½¥±ä±³¾°
+		// æ¸å˜èƒŒæ™¯
 		g2.setPaint(new GradientPaint(1, myButton.getHeight() / 7, c1, 1, myButton.getHeight() / 3, c2));
 		g2.fillRect(2, 2, myButton.getWidth() - 5, myButton.getHeight() / 3);
-		// ½¥±ä¶ş¶Î
+		// æ¸å˜äºŒæ®µ
 		g2.setPaint(new GradientPaint(1, myButton.getHeight() / 3, c3, 1, myButton.getHeight(), c4));
 		g2.fillRect(2, myButton.getHeight() / 3, myButton.getWidth() - 5, myButton.getHeight() / 3 * 2 - 1);
 
-		// ÄÚ±ß¿ò
+		// å†…è¾¹æ¡†
 		g2.setColor(Color.decode("#afafaf"));
 		g2.drawRoundRect(1, 1, myButton.getWidth() - 3, myButton.getHeight() - 2, 9, 9);
 		g2.drawRoundRect(2, 2, myButton.getWidth() - 4, myButton.getHeight() - 3, 8, 8);

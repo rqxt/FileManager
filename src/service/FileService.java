@@ -1,11 +1,11 @@
 package service;
 
 /**
- * 文件管理
+ * 鏂囦欢绠＄悊
  */
 public interface FileService {
 	/**
-	 * 复制文件
+	 * 澶嶅埗鏂囦欢
 	 * @param tagName 
 	 * @param categroyName 
 	 * @param path 
@@ -13,12 +13,12 @@ public interface FileService {
 	void copyFile(String path, String categroyName, String tagName);
 	
 	/**
-	 * 删除文件
+	 * 鍒犻櫎鏂囦欢
 	 */
 	void deleteFile();
 	
 	/**
-	 * 备份文件
+	 * 澶囦唤鏂囦欢
 	 * @param from
 	 * @param to
 	 */

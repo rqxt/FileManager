@@ -5,16 +5,16 @@ import java.util.List;
 import domain.Category;
 
 /**
- * 分类管理
+ * 鍒嗙被绠＄悊
  */
 public interface CategoryService {
 	/**
-	 * 得到所有的分类
+	 * 寰楀埌鎵�鏈夌殑鍒嗙被
 	 */
 	List<Category> findAll();
 	
 	/**
-	 * 通过Id查找
+	 * 閫氳繃Id鏌ユ壘
 	 * @param id
 	 * @return
 	 */

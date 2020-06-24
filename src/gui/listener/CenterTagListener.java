@@ -1,6 +1,6 @@
 package gui.listener;
 
-import java.awt.GridLayout;
+import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -9,33 +9,30 @@ import javax.swing.JButton;
 import gui.GUI;
 import gui.Service;
 import gui.component.ComponentUtils;
+import service.thread.MsgPrintThread;
 
 public class CenterTagListener extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// µÃµ½µã»÷µÄ±êÇ©Ãû
+		// å¾—åˆ°ç‚¹å‡»çš„æ ‡ç­¾å
 		JButton button = (JButton) (e.getSource());
 		String tagName = button.getText();
-		// ¸üĞÂÈ«¾Ö±äÁ¿
+		// æ›´æ–°å…¨å±€å˜é‡
 		Service.tagName = tagName;
 		
-		// µÃµ½ÊäÈëÎÄ¼ş¼ĞµÄ¾ø¶ÔÂ·¾¶
+		// å¾—åˆ°è¾“å…¥æ–‡ä»¶å¤¹çš„ç»å¯¹è·¯å¾„
 		String absolutePath = GUI.pathField.getText();
 
-		// ¸üĞÂÖĞ¼äPanel
-		GUI.centerPanel.removeAll();						// É¾³ıÔ­À´µÄ
-		Service.showBoard = ComponentUtils.getTextArea();	// ´´½¨ĞÂµÄ
-		GUI.centerPanel.add(Service.showBoard);				// Ìí¼Ó½øÀ´
-		GUI.centerPanel.repaint();							// ÖØ»æÍ¼
-		GUI.centerPanel.revalidate();						// ÖØ¹¹×é¼ş
+		// æ›´æ–°ä¸­é—´Panel
+		GUI.centerPanel.removeAll();						// åˆ é™¤åŸæ¥çš„
+		Service.showBoard = ComponentUtils.getTextArea();	// åˆ›å»ºæ–°çš„
 		
-		// ¿½±´ÎÄ¼ş
-		Service.fileService.copyFile(absolutePath, Service.categroyName, Service.tagName);
-		Service.showBoard.append("--------------¿½±´Íê³É£¡£¡£¡--------------");
-		
-		// ±¸·İÎÄ¼ş
-		Service.showBoard.append("\n------------ÕıÔÚ±¸·İÎÄ¼ş£¬ÇëÉÔºó------------");
-		Service.fileService.backupFile(absolutePath, Service.categroyName, Service.tagName);
-		Service.showBoard.append("\n--------------±¸·İÍê³É£¡£¡£¡--------------");
+		// é‡è®¾å¸ƒå±€
+		GUI.centerPanel.setLayout(new CardLayout());
+		GUI.centerPanel.add(Service.showBoard);				// æ·»åŠ è¿›æ¥
+		GUI.centerPanel.repaint();							// é‡ç»˜å›¾
+		GUI.centerPanel.revalidate();						// é‡æ„ç»„ä»¶
+
+		new MsgPrintThread(absolutePath).start();;
 	}
 }

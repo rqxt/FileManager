@@ -5,11 +5,13 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.Scrollbar;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -17,27 +19,30 @@ import javax.swing.LayoutStyle;
 
 import gui.Service;
 import gui.listener.CenterCategoryListener;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 /**
- * ¶Ô¿Ø¼şµÄÑùÊ½½øĞĞ¿ØÖÆ
+ * å¯¹æ§ä»¶çš„æ ·å¼è¿›è¡Œæ§åˆ¶
  */
-public class ComponentUtils{
+public class ComponentUtils {
 	private static Font font = new Font("MicroSoft Yahei", Font.BOLD, 40);
 	public static CenterCategoryListener centerButtonListener = new CenterCategoryListener();
-	
+
 	public static JScrollPane getScrollPane(JComponent component) {
 		JScrollPane jScrollPane = new JScrollPane(component);
-		// ÉèÖÃ»¬¶¯ËÙ¶È
+		// è®¾ç½®æ»‘åŠ¨é€Ÿåº¦
 		int speed = 40;
 		jScrollPane.getVerticalScrollBar().setUnitIncrement(speed);
+		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		return jScrollPane;
 	}
-	
+
 	public static JLabel getLabel(String text) {
 		JLabel jLabel = new JLabel(text);
 		jLabel.setFont(font);
 		return jLabel;
 	}
-	
+
 	public static JButton getButton(String text) {
 		JButton jButton = new MyButton(text);
 		jButton.setFont(font);
@@ -49,7 +54,7 @@ public class ComponentUtils{
 		jPanel.setFont(font);
 		return jPanel;
 	}
-	
+
 	public static JTextField getTextField() {
 		JTextField jTextField = new JTextField();
 		jTextField.setFont(font);
@@ -60,12 +65,10 @@ public class ComponentUtils{
 		// TODO Auto-generated method stub
 		JTextArea jTextArea = new JTextArea();
 		jTextArea.setFont(new Font("MicroSoft Yahei", Font.PLAIN, 24));
-		jTextArea.setEditable(false);
-		jTextArea.setLineWrap(true);
-		jTextArea.setTabSize(2);              // tab¼üËùÕ¼ÓÃµÄ¿Õ¸ñ
-		jTextArea.setLineWrap(true);          // ×Ô¶¯»»ĞĞ
-		jTextArea.setEditable(false);         // ÊÇ·ñ¿ÉÒÔ±à¼­
-		jTextArea.setAutoscrolls(true);
+		jTextArea.setEditable(false); // ä¸å¯ç¼–è¾‘
+		jTextArea.setLineWrap(true); // è‡ªåŠ¨æ¢è¡Œ
+		jTextArea.setTabSize(2); // tabé”®æ‰€å ç”¨çš„ç©ºæ ¼2
+		jTextArea.setAutoscrolls(true); //è‡ªåŠ¨æ»‘åŠ¨
 		return jTextArea;
 	}
 }

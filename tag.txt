@@ -1,0 +1,9 @@
+Java程序:基础作品&&GUI程序&&JavaEE程序&&实用程序&&网络程序&&大牛写的程序
+其他程序:Python&&AutoHotKey&&JavaScript
+Java:JavaSE&&JaveEE&&Spring&&SSM&&SpringBoot
+C:math.h&&stdio.h&&stdlib.h&&String.h&&ctype.h
+Python:大数据&&人工智能&&语音识别
+PHP:mvc&&大流量高并发量&&无限分类&&SQL注入
+C++:算法&&面向对象
+C#:基本数据类型&&代理和反馈&&动态编程
+JavaScript:嵌入&&服务器端编程

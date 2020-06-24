@@ -4,15 +4,15 @@ import java.io.File;
 
 public class FileTest {
 	public static void main(String[] args) {
-		File f1 = new File("D:\\eclipseBigBig\\°²×°°ü\\eclipse-java-2019-12-R-win32-x86_64.zip");
+		File f1 = new File("D:\\eclipseBigBig\\å®‰è£…åŒ…\\eclipse-java-2019-12-R-win32-x86_64.zip");
 		File f2 = new File("C:\\Users\\llf\\Desktop");
-		// ¸´ÖÆµÄÊÇÒ»¸öÎÄ¼ş
+		// å¤åˆ¶çš„æ˜¯ä¸€ä¸ªæ–‡ä»¶
 		if (f1.isFile()) {
-			// Ô´Â·¾¶£ºC:\\Users\\llf\\Desktop\\Ã¿ÈÕÒ»ÀÀ.url
+			// æºè·¯å¾„ï¼šC:\\Users\\llf\\Desktop\\æ¯æ—¥ä¸€è§ˆ.url
 			System.out.println(f1.getTotalSpace());
-			// Ä¿±êÂ·¾¶£º·ÖÀà/±êÇ©/±êÇ©.ÈÕÆÚ.ÎÄ¼şÃû
+			// ç›®æ ‡è·¯å¾„ï¼šåˆ†ç±»/æ ‡ç­¾/æ ‡ç­¾.æ—¥æœŸ.æ–‡ä»¶å
 		}
-		// Èç¹û¸´ÖÆµÄÊÇÒ»¸öÎÄ¼ş¼ĞµÄ»°£¬È¥µİ¹é
+		// å¦‚æœå¤åˆ¶çš„æ˜¯ä¸€ä¸ªæ–‡ä»¶å¤¹çš„è¯ï¼Œå»é€’å½’
 		if (f2.isDirectory()) {
 			System.out.println(f2.getName());
 		}

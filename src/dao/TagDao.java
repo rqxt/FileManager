@@ -7,7 +7,7 @@ import domain.Tag;
 public interface TagDao {
 	
 	/**
-	 * ²éÑ¯ËùÓĞ
+	 * æŸ¥è¯¢æ‰€æœ‰
 	 * @return
 	 */
 	List<Tag> findByCategoryName(String name); 

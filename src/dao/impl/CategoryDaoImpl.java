@@ -20,7 +20,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	
 	public CategoryDaoImpl() {
 		try {
-			// 从当前目录下读取配置文件
+			// 浠庡綋鍓嶇洰褰曚笅璇诲彇閰嶇疆鏂囦欢
 			br = new BufferedReader(new InputStreamReader(new FileInputStream("category.txt")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
