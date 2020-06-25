@@ -30,7 +30,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			list = new ArrayList<Category>();
 			String line = null;
 			int i = 0;
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null && !line.trim().equals("")) {
 				Category category = new Category();
 				category.setName(line);
 				category.setId(i++);

@@ -12,7 +12,6 @@ public class TagServiceImpl implements TagService{
 	
 	@Override
 	public List<Tag> findByCategoryName(String name) {
-		
 		return tagDao.findByCategoryName(name);
 	}
 

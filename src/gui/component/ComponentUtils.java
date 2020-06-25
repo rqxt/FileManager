@@ -25,7 +25,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
  * 对控件的样式进行控制
  */
 public class ComponentUtils {
-	private static Font font = new Font("MicroSoft Yahei", Font.BOLD, 40);
+	public static Font font = new Font("MicroSoft Yahei", Font.BOLD, 40);
 	public static CenterCategoryListener centerButtonListener = new CenterCategoryListener();
 
 	public static JScrollPane getScrollPane(JComponent component) {
@@ -62,13 +62,12 @@ public class ComponentUtils {
 	}
 
 	public static JTextArea getTextArea() {
-		// TODO Auto-generated method stub
 		JTextArea jTextArea = new JTextArea();
 		jTextArea.setFont(new Font("MicroSoft Yahei", Font.PLAIN, 24));
 		jTextArea.setEditable(false); // 不可编辑
 		jTextArea.setLineWrap(true); // 自动换行
 		jTextArea.setTabSize(2); // tab键所占用的空格2
-		jTextArea.setAutoscrolls(true); //自动滑动
+		jTextArea.setAutoscrolls(true); // 自动滑动
 		return jTextArea;
 	}
 }

@@ -13,18 +13,15 @@ import util.DateUtils;
 import util.File7zUtils;
 
 public class FileServiceImpl implements FileService {
-
 	@Override
 	public void copyFile(String path, String categroyName, String tagName) {
 		// 获取当前路径
 		String currentPath = FileServiceImpl.class.getClassLoader().getResource("").getPath();
 		File source = new File(path);
 		// 拷贝文件的路径
-		String targetPath = currentPath + "//代码存储//" + categroyName + "//" + tagName;
+		String targetPath = currentPath + "代码存储/" + categroyName + "/" + tagName;
+		Service.copyFilePath = targetPath;
 		File target = new File(targetPath);
-
-//		System.out.println(source);
-//		System.out.println(target);
 		// 递归拷贝文件目录结构
 		iterate(source, target, tagName, 0);
 	}
@@ -105,8 +102,9 @@ public class FileServiceImpl implements FileService {
 		// 获取当前路径
 		String currentPath = FileServiceImpl.class.getClassLoader().getResource("").getPath();
 		// 拷贝文件的路径
-		String targetPath = currentPath + "/[备份]代码存储/" + categoryName + "/" + tagName;
-
+		String targetPath = currentPath + "[备份]代码存储/" + categoryName + "/" + tagName;
+		Service.backFilePath = targetPath;
+		
 		// 生成目标目录
 		File f = new File(targetPath);
 		f.mkdirs();

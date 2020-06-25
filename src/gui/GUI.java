@@ -16,7 +16,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import domain.Category;
+import domain.Tag;
 import gui.component.ComponentUtils;
+import gui.listener.CenterTagListener;
+import gui.listener.ReturnButtonListener;
+import gui.listener.SouthReloadButtonListener;
 import javafx.geometry.Orientation;
 import service.CategoryService;
 import service.FileService;
@@ -29,43 +33,53 @@ public class GUI extends JFrame {
 	// 将GUI的控件访问权限放开
 	public static JPanel centerPanel;
 	public static JScrollPane centerScrollPane;
+	public static JPanel msgLeftPanel;
 	public static JLabel msgLeftLabel;
+	public static JButton returnLeftButton;
 	public static JPanel pathTopPanel;
 	public static JTextField pathField;
+	public static JButton southReLoad;
 	
+
 	public GUI() {
 		// 上边文件夹的绝对路径
 		pathTopPanel = ComponentUtils.getPanel(new BorderLayout());
-		pathTopPanel.setBackground(Color.LIGHT_GRAY);
+		pathTopPanel.setBackground(new Color(222, 125, 44, 53));
 		// 提示框
 		pathTopPanel.add(ComponentUtils.getLabel("文件夹绝对路径："), BorderLayout.WEST);
 		// 输入框
 		pathField = ComponentUtils.getTextField();
 		pathTopPanel.add(pathField, BorderLayout.CENTER);
-		
+
 		// 左边状态栏目
-		msgLeftLabel = ComponentUtils.getLabel("分类");
+		msgLeftPanel = ComponentUtils.getPanel(new BorderLayout());
+		returnLeftButton = ComponentUtils.getButton(" ");
+		returnLeftButton.addMouseListener(new ReturnButtonListener());
+		returnLeftButton.setFocusable(false);
+		msgLeftPanel.add(returnLeftButton, BorderLayout.SOUTH);
+		
+		msgLeftLabel = ComponentUtils.getLabel("");
+		msgLeftPanel.add(msgLeftLabel, BorderLayout.CENTER);
 		
 		// 中间活动区域
 		centerPanel = new JPanel();
 		centerScrollPane = ComponentUtils.getScrollPane(centerPanel);
-		
-		// 加载分类
-		List<Category> categories = Service.categoryService.findAll();
-		centerPanel.setLayout(new GridLayout((categories.size()+1)/2,2));
-		for (int i = 0; i < categories.size(); i++) {
-			String name = categories.get(i).getName();
-			JButton cButton = ComponentUtils.getButton(name);
-			cButton.addMouseListener(ComponentUtils.centerButtonListener);
-			centerPanel.add(cButton);
-		}
+
+		// 下边重新再次复制按钮
+		southReLoad = new JButton("添加新的文件夹");
+		southReLoad.setVisible(false);
+		southReLoad.setFocusable(false);
+		southReLoad.setBorder(null);
+		southReLoad.setFont(ComponentUtils.font);
+		southReLoad.addMouseListener(new SouthReloadButtonListener());
 		
 		// 设置布局
-        setLayout(new BorderLayout());
-        add(pathTopPanel, BorderLayout.NORTH);
-        add(msgLeftLabel, BorderLayout.WEST);
-        add(centerScrollPane, BorderLayout.CENTER);
-		
+		setLayout(new BorderLayout());
+		add(pathTopPanel, BorderLayout.NORTH);
+		add(msgLeftPanel, BorderLayout.WEST);
+		add(centerScrollPane, BorderLayout.CENTER);
+		add(southReLoad, BorderLayout.SOUTH);
+
 		// 标题
 		setTitle("代码存储管理");
 		// 尺寸大小
@@ -80,5 +94,6 @@ public class GUI extends JFrame {
 
 	public static void main(String[] args) {
 		new GUI();
+		Service.loadCategories();
 	}
 }

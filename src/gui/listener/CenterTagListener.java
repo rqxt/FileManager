@@ -3,13 +3,17 @@ package gui.listener;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.JButton;
+
+import com.sun.org.apache.bcel.internal.classfile.Field;
 
 import gui.GUI;
 import gui.Service;
 import gui.component.ComponentUtils;
 import service.thread.MsgPrintThread;
+import service.thread.TopMsgChangeThread;
 
 public class CenterTagListener extends MouseAdapter {
 	@Override
@@ -19,20 +23,25 @@ public class CenterTagListener extends MouseAdapter {
 		String tagName = button.getText();
 		// 更新全局变量
 		Service.tagName = tagName;
-		
+
 		// 得到输入文件夹的绝对路径
-		String absolutePath = GUI.pathField.getText();
-
-		// 更新中间Panel
-		GUI.centerPanel.removeAll();						// 删除原来的
-		Service.showBoard = ComponentUtils.getTextArea();	// 创建新的
+		String absolutePath = GUI.pathField.getText().trim();
+		File f = new File(absolutePath);
 		
-		// 重设布局
-		GUI.centerPanel.setLayout(new CardLayout());
-		GUI.centerPanel.add(Service.showBoard);				// 添加进来
-		GUI.centerPanel.repaint();							// 重绘图
-		GUI.centerPanel.revalidate();						// 重构组件
+		if (!f.exists() || f.isFile()) {
+			if (absolutePath.equals(""))
+				new TopMsgChangeThread("输入为空！", absolutePath).start();
+			else if (!f.exists())
+				new TopMsgChangeThread("文件夹不存在！", absolutePath).start();
+			else if (f.isFile())
+				new TopMsgChangeThread("输入的是文件名！", absolutePath).start();
+			GUI.centerPanel.setVisible(false);
+			return;
+		}
 
-		new MsgPrintThread(absolutePath).start();;
+		Service.loadShowBoard();
+
+		Service.msgPrintThread = new MsgPrintThread(absolutePath);
+		Service.msgPrintThread.start();
 	}
 }

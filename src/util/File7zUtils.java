@@ -54,7 +54,7 @@ public class File7zUtils {
 			}
 		} else// 如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入7z文件??
 		{
-			Service.showBoard.append("正在拷贝文件: " + input.getName() + " \n");
+			Service.showBoard.append("正在压缩文件: " + input.getName() + " \n");
 			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
 			
 			
