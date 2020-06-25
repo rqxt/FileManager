@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.sun.org.apache.bcel.internal.classfile.Field;
+
 import gui.Service;
 import service.FileService;
 import util.DateUtils;
@@ -22,13 +24,28 @@ public class FileServiceImpl implements FileService {
 		String targetPath = currentPath + "代码存储/" + categroyName + "/" + tagName;
 		Service.copyFilePath = targetPath;
 		File target = new File(targetPath);
+		if (target.exists()) {
+			Service.showBoard.append("文件夹已存在，递归删除删除原文件\n");
+			// 已存在，则删除原来的目录
+			deleteFile(target);
+			Service.showBoard.append("删除完毕！\n");
+		}
 		// 递归拷贝文件目录结构
 		iterate(source, target, tagName, 0);
 	}
 
 	@Override
-	public void deleteFile() {
-
+	public void deleteFile(File deleteFile) {
+		if (deleteFile.isFile()) {
+			Service.showBoard.append("正在删除文件: " + deleteFile.getName() + " \n");
+			deleteFile.delete();
+		} else if (deleteFile.isDirectory()) {
+			for (File f : deleteFile.listFiles()) {
+				deleteFile(f);
+			}
+			// 记得delete掉文件夹
+			deleteFile.delete();
+		}
 	}
 
 	/**
@@ -104,7 +121,7 @@ public class FileServiceImpl implements FileService {
 		// 拷贝文件的路径
 		String targetPath = currentPath + "[备份]代码存储/" + categoryName + "/" + tagName;
 		Service.backFilePath = targetPath;
-		
+
 		// 生成目标目录
 		File f = new File(targetPath);
 		f.mkdirs();
@@ -112,7 +129,7 @@ public class FileServiceImpl implements FileService {
 		// 添加标签戳
 		String name = from.substring(from.lastIndexOf("\\") + 1);
 		name = String.format("\\[%s].%s.7z", tagName, name);
-		
+
 		try {
 			// 压缩文件
 			File7zUtils.Compress7z(from, targetPath + name);

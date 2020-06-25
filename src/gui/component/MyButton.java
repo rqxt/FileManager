@@ -21,8 +21,7 @@ public class MyButton extends JButton {
 	private int isMouseEntered = 1;// 鼠标是否进入按钮
 
 	public MyButton() {
-		initStyle();
-
+		this(" ");
 	}
 
 	public MyButton(String buttonText) {

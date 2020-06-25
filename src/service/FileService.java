@@ -1,5 +1,7 @@
 package service;
 
+import java.io.File;
+
 /**
  * 文件管理
  */
@@ -15,7 +17,7 @@ public interface FileService {
 	/**
 	 * 删除文件
 	 */
-	void deleteFile();
+	void deleteFile(File deleteFile);
 	
 	/**
 	 * 备份文件

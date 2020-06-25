@@ -57,7 +57,6 @@ public class File7zUtils {
 			Service.showBoard.append("正在压缩文件: " + input.getName() + " \n");
 			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
 			
-			
 			FileInputStream fos = new FileInputStream(input);
 			BufferedInputStream bis = new BufferedInputStream(fos);
 			entry = out.createArchiveEntry(input, name);
