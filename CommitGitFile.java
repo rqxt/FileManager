@@ -19,49 +19,48 @@ import javax.print.attribute.standard.MediaSize.Other;
  * 提交Git数据
  */
 public class CommitGitFile {
+	// 留言文件路径
+	private static String commentPath = "本次提交解决问题记录.log";
+	// 备份路径
+	private static String backupPath = "提交备份.log";
+
 	public static void main(String[] args) throws Exception {
-		// 将没有push的commit，push上去
-		clearUnCommit();
 
-		// 提交变更时的留言
-		String commentPath = "本次提交解决问题记录.log";
-		// 备份路径 提交备份.log
-		String backupPath = "提交备份.log";
-		// 读取本次提交内容
+		print("读取留言文件...");
 		File commentFile = new File(commentPath);
-		File backupFile = new File(backupPath);
-		// 留言
 		String comment = readFile(commentFile);
-		// 备份
-		String backup = readFile(backupFile);
-		// 日期
-		String date = getDate();
-
-		// 逻辑部分
-		print("开始提交...");
-		boolean commit = commit(comment);
-		if (!commit) {
-			print("---------------- 提交失败，已退出");
+		if (comment.equals("")) {
+			print("----------留言文件为空，请填写后提交！");
 			return;
 		}
-		print("开始记录备份...");
 
+		print("检查之前是否有未推送(push)的提交(commit)...");
+		clearUnCommit();
+
+		print("开始提交...");
+		commit(comment);
+
+		print("开始备份日志...");
+		File backupFile = new File(backupPath);
+		String backup = readFile(backupFile);
+		String date = getDate();
 		writeFile(backupFile, date, comment, backup);
-		print("记录备份成功");
-		// 备份完成之后，删除 "本次提交解决问题记录.log"
+		print("---------备份日志完成");
+
+		print("删除文件：本次提交解决问题记录.log");
 		commentFile.delete();
 		commentFile.createNewFile();
-		print("已重置 '本次提交解决问题记录.log'");
+		print("---------删除完毕'");
 	}
 
 	private static void clearUnCommit() throws Exception {
-		print("先提交3次，将之前没push的commit先push");
+		print("尝试检查3次，若发现已推送完毕，则退出");
 		Runtime runtime = Runtime.getRuntime();
-		for (int i = 0; i < 3; i++) {
-			print("git push");
-			boolean log = log(runtime.exec("cmd /c git push"));
-			if (log == false) {
-				print("没有未push的commit");
+		for (int i = 0; i < 10; i++) {
+			print("第" + (i + 1) + "次 " + " git push");
+			boolean needPush = log(runtime.exec("cmd /c git push"));
+			if (needPush == false) {
+				print("----------全部的提交(commit)均已推送(push)完全");
 				return;
 			}
 		}
@@ -69,31 +68,26 @@ public class CommitGitFile {
 
 	private static boolean log(Process pc) throws Exception {
 		SequenceInputStream sis = new SequenceInputStream(pc.getInputStream(), pc.getErrorStream());
-		InputStreamReader inst = new InputStreamReader(sis, "GBK");
+		InputStreamReader inst = new InputStreamReader(sis);
 		BufferedReader br = new BufferedReader(inst);
 		String line;
 		// 是否需要提交
-		boolean flag = true;
+		boolean needPush = true;
 		while ((line = br.readLine()) != null) {
 			if (line.contains("Everything up-to-date"))
-				flag = false;
+				needPush = false;
 			print(line);
 		}
 		br.close();
-		return flag;
+		return needPush;
 	}
 
-	private static boolean commit(String comment) throws Exception {
-		// 提交Git
+	private static void commit(String comment) throws Exception {
 		Runtime runtime = Runtime.getRuntime();
 
 		print("git add -A");
 		log(runtime.exec("cmd /c git add -A"));
-		// 如果comment不为空，则commit提交
-		if (comment.equals("")) {
-			print("请填写提交说明！");
-			return false;
-		}
+		
 		String[] split = comment.split("\\n");
 		StringBuilder sb = new StringBuilder("cmd /c git commit ");
 		for (String str : split) {
@@ -104,9 +98,6 @@ public class CommitGitFile {
 
 		print("git push");
 		log(runtime.exec("cmd /c git push"));
-
-		return true;
-
 	}
 
 	// 写文件前，先将文件清空
