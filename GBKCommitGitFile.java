@@ -20,6 +20,9 @@ import javax.print.attribute.standard.MediaSize.Other;
  */
 public class GBKCommitGitFile {
 	public static void main(String[] args) throws Exception {
+		// 将没有push的commit，push上去
+		clearUnCommit();
+
 		// 提交变更时的留言
 		String commentPath = "本次提交解决问题记录.log";
 		// 备份路径 提交备份.log
@@ -38,28 +41,42 @@ public class GBKCommitGitFile {
 		print("开始提交...");
 		boolean commit = commit(comment);
 		if (!commit) {
-			print("提交失败，已退出");
+			print("---------------- 提交失败，已退出");
 			return;
 		}
-		print("开始备份...");
+		print("开始记录备份...");
 
 		writeFile(backupFile, date, comment, backup);
-		print("备份成功");
+		print("记录备份成功");
 		// 备份完成之后，删除 "本次提交解决问题记录.log"
 		commentFile.delete();
 		commentFile.createNewFile();
-		print("重置 '本次提交解决问题记录.log'");
+		print("已重置 '本次提交解决问题记录.log'");
 	}
 
-	private static void log(Process pc) throws Exception {
+	private static void clearUnCommit() throws Exception {
+		print("先提交3次，将之前没提交的先提交");
+		Runtime runtime = Runtime.getRuntime();
+		for (int i = 0; i < 3; i++) {
+			print("git push");
+			log(runtime.exec("cmd /c git push"));
+		}
+	}
+
+	private static boolean log(Process pc) throws Exception {
 		SequenceInputStream sis = new SequenceInputStream(pc.getInputStream(), pc.getErrorStream());
 		InputStreamReader inst = new InputStreamReader(sis, "GBK");
 		BufferedReader br = new BufferedReader(inst);
 		String line;
+		// 是否需要提交
+		boolean flag = true;
 		while ((line = br.readLine()) != null) {
+			if (line.contains("Everything up-to-date"))
+				flag = false;
 			print(line);
 		}
 		br.close();
+		return flag;
 	}
 
 	private static boolean commit(String comment) throws Exception {
