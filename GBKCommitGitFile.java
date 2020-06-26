@@ -16,39 +16,39 @@ import java.util.Date;
 import javax.print.attribute.standard.MediaSize.Other;
 
 /**
- * æäº¤Gitæ•°æ®
+ * Ìá½»GitÊı¾İ
  */
-public class CommitGitFile {
+public class GBKCommitGitFile {
 	public static void main(String[] args) throws Exception {
-		// æäº¤å˜æ›´æ—¶çš„ç•™è¨€
-		String commentPath = "æœ¬æ¬¡æäº¤è§£å†³é—®é¢˜è®°å½•.log";
-		// å¤‡ä»½è·¯å¾„ æäº¤å¤‡ä»½.log
-		String backupPath = "æäº¤å¤‡ä»½.log";
-		// è¯»å–æœ¬æ¬¡æäº¤å†…å®¹
+		// Ìá½»±ä¸üÊ±µÄÁôÑÔ
+		String commentPath = "±¾´ÎÌá½»½â¾öÎÊÌâ¼ÇÂ¼.log";
+		// ±¸·İÂ·¾¶ Ìá½»±¸·İ.log
+		String backupPath = "Ìá½»±¸·İ.log";
+		// ¶ÁÈ¡±¾´ÎÌá½»ÄÚÈİ
 		File commentFile = new File(commentPath);
 		File backupFile = new File(backupPath);
-		// ç•™è¨€
+		// ÁôÑÔ
 		String comment = readFile(commentFile);
-		// å¤‡ä»½
+		// ±¸·İ
 		String backup = readFile(backupFile);
-		// æ—¥æœŸ
+		// ÈÕÆÚ
 		String date = getDate();
 
-		// é€»è¾‘éƒ¨åˆ†
-		print("å¼€å§‹æäº¤...");
+		// Âß¼­²¿·Ö
+		print("¿ªÊ¼Ìá½»...");
 		boolean commit = commit(comment);
 		if (!commit) {
-			print("æäº¤å¤±è´¥ï¼Œå·²é€€å‡º");
+			print("Ìá½»Ê§°Ü£¬ÒÑÍË³ö");
 			return;
 		}
-		print("å¼€å§‹å¤‡ä»½...");
+		print("¿ªÊ¼±¸·İ...");
 
 		writeFile(backupFile, date, comment, backup);
-		print("å¤‡ä»½æˆåŠŸ");
-		// å¤‡ä»½å®Œæˆä¹‹åï¼Œåˆ é™¤ "æœ¬æ¬¡æäº¤è§£å†³é—®é¢˜è®°å½•.log"
+		print("±¸·İ³É¹¦");
+		// ±¸·İÍê³ÉÖ®ºó£¬É¾³ı "±¾´ÎÌá½»½â¾öÎÊÌâ¼ÇÂ¼.log"
 		commentFile.delete();
 		commentFile.createNewFile();
-		print("é‡ç½® 'æœ¬æ¬¡æäº¤è§£å†³é—®é¢˜è®°å½•.log'");
+		print("ÖØÖÃ '±¾´ÎÌá½»½â¾öÎÊÌâ¼ÇÂ¼.log'");
 	}
 
 	private static void log(Process pc) throws Exception {
@@ -63,14 +63,14 @@ public class CommitGitFile {
 	}
 
 	private static boolean commit(String comment) throws Exception {
-		// æäº¤Git
+		// Ìá½»Git
 		Runtime runtime = Runtime.getRuntime();
 
 		print("git add -A");
 		log(runtime.exec("cmd /c git add -A"));
-		// å¦‚æœcommentä¸ä¸ºç©ºï¼Œåˆ™commitæäº¤
+		// Èç¹ûcomment²»Îª¿Õ£¬ÔòcommitÌá½»
 		if (comment.equals("")) {
-			print("è¯·å¡«å†™æäº¤è¯´æ˜ï¼");
+			print("ÇëÌîĞ´Ìá½»ËµÃ÷£¡");
 			return false;
 		}
 		String[] split = comment.split("\\n");
@@ -88,7 +88,7 @@ public class CommitGitFile {
 
 	}
 
-	// å†™æ–‡ä»¶å‰ï¼Œå…ˆå°†æ–‡ä»¶æ¸…ç©º
+	// Ğ´ÎÄ¼şÇ°£¬ÏÈ½«ÎÄ¼şÇå¿Õ
 	private static void writeFile(File file, String date, String comment, String backup) throws Exception {
 		file.delete();
 		file.createNewFile();
@@ -100,7 +100,7 @@ public class CommitGitFile {
 		bw.write(comment);
 		bw.newLine();
 
-		// ä¸ä¹‹å‰çš„è®°å½•ç©ºä¸¤è¡Œ
+		// ÓëÖ®Ç°µÄ¼ÇÂ¼¿ÕÁ½ĞĞ
 		bw.newLine();
 		bw.newLine();
 
@@ -109,7 +109,7 @@ public class CommitGitFile {
 		bw.close();
 	}
 
-	// è¯»æ–‡ä»¶
+	// ¶ÁÎÄ¼ş
 	private static String readFile(File file) throws Exception {
 		InputStreamReader in = new InputStreamReader(new FileInputStream(file), "GBK");
 		BufferedReader br = new BufferedReader(in);
@@ -124,7 +124,7 @@ public class CommitGitFile {
 	}
 
 	private static String getDate() {
-		SimpleDateFormat format = new SimpleDateFormat("è®°å½•æ—¶é—´ï¼šyyyyå¹´MMæœˆddæ—¥ HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("¼ÇÂ¼Ê±¼ä£ºyyyyÄêMMÔÂddÈÕ HH:mm:ss");
 		Date date = new java.util.Date();
 		return format.format(date);
 	}
