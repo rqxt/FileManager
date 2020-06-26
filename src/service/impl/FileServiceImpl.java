@@ -7,9 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.sun.org.apache.bcel.internal.classfile.Field;
-
-import gui.Service;
+import static util.PrintUtils.*;
+import static gui.Service.*;
 import service.FileService;
 import util.DateUtils;
 import util.File7zUtils;
@@ -22,13 +21,18 @@ public class FileServiceImpl implements FileService {
 		File source = new File(path);
 		// 拷贝文件的路径
 		String targetPath = currentPath + "代码存储/" + categroyName + "/" + tagName;
-		Service.copyFilePath = targetPath;
+		copyFilePath = targetPath;
 		File target = new File(targetPath);
-		if (target.exists()) {
-			Service.showBoard.append("文件夹已存在，递归删除删除原文件\n");
+
+		String name = source.getName();
+		name = addTagAndTime(name, tagName);
+		File deleteIt = new File(target, name);
+		if (deleteIt.exists()) {
+			print("文件夹已存在，递归删除删除原文件", showBoard);
 			// 已存在，则删除原来的目录
-			deleteFile(target);
-			Service.showBoard.append("删除完毕！\n");
+			deleteFile(deleteIt);
+//			deleteFile(target);	// 这一条语句造成重大bug，修复了
+			print("删除完毕！", showBoard);
 		}
 		// 递归拷贝文件目录结构
 		iterate(source, target, tagName, 0);
@@ -37,7 +41,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public void deleteFile(File deleteFile) {
 		if (deleteFile.isFile()) {
-			Service.showBoard.append("正在删除文件: " + deleteFile.getName() + " \n");
+			print("正在删除文件: " + deleteFile.getName(), showBoard);
 			deleteFile.delete();
 		} else if (deleteFile.isDirectory()) {
 			for (File f : deleteFile.listFiles()) {
@@ -77,7 +81,6 @@ public class FileServiceImpl implements FileService {
 
 	// 添加标签戳
 	private String addTagAndTime(String name, String tagName) {
-		String today = DateUtils.getToday();
 		name = String.format("[%s].%s", tagName, name);
 		return name;
 	}
@@ -95,8 +98,7 @@ public class FileServiceImpl implements FileService {
 			in = new BufferedInputStream(new FileInputStream(sourceFile));
 			out = new BufferedOutputStream(new FileOutputStream(targetFile));
 			Thread.sleep(50);
-			Service.showBoard.append("正在复制文件: " + sourceFile.getName() + " \n");
-			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
+			print("正在复制文件: " + sourceFile.getName(), showBoard);
 			int len;
 			while ((len = in.read()) != -1) {
 				out.write(len);
@@ -120,7 +122,7 @@ public class FileServiceImpl implements FileService {
 		String currentPath = FileServiceImpl.class.getClassLoader().getResource("").getPath();
 		// 拷贝文件的路径
 		String targetPath = currentPath + "[备份]代码存储/" + categoryName + "/" + tagName;
-		Service.backFilePath = targetPath;
+		backFilePath = targetPath;
 
 		// 生成目标目录
 		File f = new File(targetPath);
