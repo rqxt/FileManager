@@ -97,7 +97,6 @@ public class FileServiceImpl implements FileService {
 		try {
 			in = new BufferedInputStream(new FileInputStream(sourceFile));
 			out = new BufferedOutputStream(new FileOutputStream(targetFile));
-			Thread.sleep(50);
 			print("正在复制文件: " + sourceFile.getName(), showBoard);
 			int len;
 			while ((len = in.read()) != -1) {

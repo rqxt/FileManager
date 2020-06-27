@@ -45,7 +45,7 @@ public class MsgPrintThread extends Thread {
 		GUI.centerScrollPane.repaint();
 
 		print("********************************************************", showBoard);
-		print("无操作，" + AutoCloseThraed.timeout * 2 + "秒后自动结束程序", showBoard);
+		print("无操作，" + AutoCloseThraed.timeout + "秒后自动结束程序", showBoard);
 		print("********************************************************", showBoard);
 		curPosition = "complete";
 

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
@@ -11,7 +12,7 @@ import javax.swing.JTextArea;
 import domain.Category;
 import domain.Tag;
 import gui.component.ComponentUtils;
-import gui.component.GuiUtils;
+import gui.component.SwingUtils;
 import gui.component.MyButton;
 import gui.listener.CenterTagListener;
 import gui.listener.CenterTextAreaListener;
@@ -55,7 +56,7 @@ public class Service {
 		GUI.centerPanel.setLayout(new GridLayout((categories.size() + 1) / 2, 2));
 		for (int i = 0; i < categories.size(); i++) {
 			String name = categories.get(i).getName();
-			JButton cButton = GuiUtils.getJComponent(MyButton.class, name);
+			JButton cButton = SwingUtils.newInstance(MyButton.class, name);
 			cButton.addMouseListener(StaticListener.centerCategoryListener);
 			GUI.centerPanel.add(cButton);
 		}
@@ -80,7 +81,7 @@ public class Service {
 		GUI.msgLeftPanel.repaint();
 		for (int i = 0; i < tags.size(); i++) {
 			String name = tags.get(i).getName();
-			JButton cButton = GuiUtils.getJComponent(MyButton.class, name, listener);
+			JButton cButton = SwingUtils.newInstance(MyButton.class, name, listener);
 //			cButton.addMouseListener(listener);
 			GUI.centerPanel.add(cButton);
 		}
@@ -91,9 +92,10 @@ public class Service {
 	public static void loadShowBoard() {
 		// 更新中间Panel
 		GUI.centerPanel.removeAll(); // 删除原来的
-		Service.showBoard = GuiUtils.getJComponent(JTextArea.class);
+		Service.showBoard = SwingUtils.newInstance(JTextArea.class);
 		Service.showBoard.addMouseListener(new CenterTextAreaListener());
-		Service.showBoard.setFont(new Font("MicroSoft Yahei", 0, 20));
+		Service.showBoard.setFont(new Font("MicroSoft Yahei", 0, 25));
+		Service.showBoard.setBackground(new Color(240,218,210));
 		// 重设布局
 		GUI.centerPanel.setLayout(new CardLayout());
 		GUI.centerPanel.add(Service.showBoard); // 添加进来

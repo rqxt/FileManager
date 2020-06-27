@@ -26,7 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import domain.Category;
 import domain.Tag;
 import gui.component.ComponentUtils;
-import gui.component.GuiUtils;
+import gui.component.SwingUtils;
 import gui.component.MyButton;
 import gui.func.DragFunc;
 import gui.listener.CenterTagListener;
@@ -54,29 +54,28 @@ public class GUI extends JFrame {
 
 	public GUI() {
 		// 文件夹的绝对路径
-		pathTopPanel = GuiUtils.getJComponent(JPanel.class, new BorderLayout());
+		pathTopPanel = SwingUtils.newInstance(JPanel.class, new BorderLayout());
 		pathTopPanel.setBackground(new Color(222, 125, 44, 53));
 		// 提示框
-		pathTopPanel.add(GuiUtils.getJComponent(JLabel.class, "文件夹绝对路径："), BorderLayout.WEST);
+		pathTopPanel.add(SwingUtils.newInstance(JLabel.class, "文件夹绝对路径："), BorderLayout.WEST);
 		// 输入框
-		pathField = GuiUtils.getJComponent(JTextField.class, "C:\\Users\\llf\\Desktop\\代码中转"); // 将文件夹拖入窗口中
+		pathField = SwingUtils.newInstance(JTextField.class, "C:\\Users\\llf\\Desktop\\代码中转\\测试包"); // 将文件夹拖入窗口中
 		pathTopPanel.add(pathField, BorderLayout.CENTER);
 		pathField.setDragEnabled(false);
-		// 左边状态栏目
-		msgLeftPanel = GuiUtils.getJComponent(JPanel.class, new BorderLayout());
 
-		returnLeftButton = GuiUtils.getJComponent(MyButton.class, " ", new ReturnButtonListener());
+		// 左边状态栏目
+		msgLeftPanel = SwingUtils.newInstance(JPanel.class, new BorderLayout());
+		msgLeftLabel = SwingUtils.newInstance(JLabel.class, "");
+		msgLeftPanel.add(msgLeftLabel, BorderLayout.CENTER);
+		returnLeftButton = SwingUtils.newInstance(MyButton.class, " ", new ReturnButtonListener());
 		msgLeftPanel.add(returnLeftButton, BorderLayout.SOUTH);
 
-		msgLeftLabel = GuiUtils.getJComponent(JLabel.class, "");
-		msgLeftPanel.add(msgLeftLabel, BorderLayout.CENTER);
-
 		// 中间活动区域
-		centerPanel = GuiUtils.getJComponent(JPanel.class);
-		centerScrollPane = GuiUtils.getScrollPane(centerPanel);
+		centerPanel = SwingUtils.newInstance(JPanel.class);
+		centerScrollPane = SwingUtils.newInstance(JScrollPane.class, centerPanel);
 
 		// 下边重新再次复制按钮
-		southReLoad = GuiUtils.getJComponent(JButton.class, "添加新的文件夹", new SouthReloadButtonListener());
+		southReLoad = SwingUtils.newInstance(JButton.class, "添加新的文件夹", new SouthReloadButtonListener());
 		southReLoad.setVisible(false);
 		southReLoad.setBorder(null);
 
@@ -97,7 +96,6 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// 显示窗口
 		setVisible(true);
-		
 		new AutoCloseThraed().start();
 	}
 
