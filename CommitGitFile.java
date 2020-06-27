@@ -38,8 +38,13 @@ public class CommitGitFile {
 		clearUnCommit();
 
 		print("开始提交...");
-		commit(comment);
+		boolean committed = commit(comment);
+		if (!committed) {
+			print("----------提交失败，没有需要推送的修改");
+			return;
+		}
 
+		print("----------提交成功");
 		print("开始备份日志...");
 		File backupFile = new File(backupPath);
 		String backup = readFile(backupFile);
@@ -82,12 +87,12 @@ public class CommitGitFile {
 		return needPush;
 	}
 
-	private static void commit(String comment) throws Exception {
+	private static boolean commit(String comment) throws Exception {
 		Runtime runtime = Runtime.getRuntime();
 
 		print("git add -A");
 		log(runtime.exec("cmd /c git add -A"));
-		
+
 		String[] split = comment.split("\\n");
 		StringBuilder sb = new StringBuilder("cmd /c git commit ");
 		for (String str : split) {
@@ -97,7 +102,8 @@ public class CommitGitFile {
 		log(runtime.exec(sb.toString()));
 
 		print("git push");
-		log(runtime.exec("cmd /c git push"));
+		boolean committed = log(runtime.exec("cmd /c git push"));
+		return committed;
 	}
 
 	// 写文件前，先将文件清空
