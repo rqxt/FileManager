@@ -52,10 +52,10 @@ public class GBKCommitGitFile {
 		writeFile(backupFile, date, comment, backup);
 		print("---------备份日志完成");
 
-		print("删除文件：本次提交解决问题记录.log");
+		print("重置文件：本次提交解决问题记录.log");
 		commentFile.delete();
 		commentFile.createNewFile();
-		print("---------删除完毕'");
+		print("---------重置完毕'");
 	}
 
 	private static void clearUnCommit() throws Exception {
@@ -73,7 +73,8 @@ public class GBKCommitGitFile {
 
 	private static boolean log(Process pc) throws Exception {
 		SequenceInputStream sis = new SequenceInputStream(pc.getInputStream(), pc.getErrorStream());
-		InputStreamReader inst = new InputStreamReader(sis);
+		// 防止乱码
+		InputStreamReader inst = new InputStreamReader(sis, "GBK");
 		BufferedReader br = new BufferedReader(inst);
 		String line;
 		// 是否需要提交
