@@ -1,6 +1,5 @@
 package util;
 
-import static gui.Service.showBoard;
 
 import javax.swing.JTextArea;
 

@@ -6,7 +6,7 @@ import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
 import gui.Service;
 
 import java.io.*;
-
+import static gui.component.CenterMainPanel.*;
 /**
  * date: 2019/07/27 writed by yangtingting
  */
@@ -54,8 +54,8 @@ public class File7zUtils {
 			}
 		} else// 如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入7z文件??
 		{
-			Service.showBoard.append("正在压缩文件: " + input.getName() + " \n");
-			Service.showBoard.setCaretPosition(Service.showBoard.getText().length());
+			showBoard.append("正在压缩文件: " + input.getName() + " \n");
+			showBoard.setCaretPosition(showBoard.getText().length());
 			
 			FileInputStream fos = new FileInputStream(input);
 			BufferedInputStream bis = new BufferedInputStream(fos);

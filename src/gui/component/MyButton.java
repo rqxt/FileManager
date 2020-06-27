@@ -14,6 +14,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 /**
+ * 渐变颜色的自定义按钮
  * https://blog.csdn.net/yuanzihui/article/details/43935509
  */
 public class MyButton extends JButton {

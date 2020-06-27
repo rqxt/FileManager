@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import static gui.component.CenterMainPanel.*;
 import static util.PrintUtils.*;
 import static gui.Service.*;
 import service.FileService;
